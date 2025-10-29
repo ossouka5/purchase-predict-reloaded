@@ -1,0 +1,7 @@
+ipython>=8.10
+jupyterlab>=3.0
+notebook
+pandas==2.2.1
+scikit-learn==1.4.1.post1
+kedro==0.19.8
+kedro-datasets==3.0.0
