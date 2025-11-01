@@ -14,6 +14,7 @@ replacements = {
 # Extensions à scanner
 EXTENSIONS = (".py", ".ipynb")  # si tu veux inclure les notebooks
 
+
 def scan_file(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
@@ -22,6 +23,7 @@ def scan_file(file_path):
         if re.search(old, content):
             issues.append((old, new))
     return issues
+
 
 def scan_project(root_dir):
     results = {}
@@ -33,6 +35,7 @@ def scan_project(root_dir):
                 if issues:
                     results[file_path] = issues
     return results
+
 
 if __name__ == "__main__":
     results = scan_project(PROJECT_ROOT)

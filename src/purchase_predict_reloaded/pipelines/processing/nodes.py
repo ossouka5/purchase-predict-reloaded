@@ -3,6 +3,7 @@ from typing import Dict, Any
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
+
 def encode_features(dataset: pd.DataFrame) -> pd.DataFrame:
     """Encode categorical features of the dataset."""
     features = dataset.drop(["user_id", "user_session"], axis=1).copy()

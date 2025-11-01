@@ -1,1 +1,4 @@
 test_ratio: 0.3
+automl_max_evals: 10
+project: "learned-pier-457806-f5"
+bucket_path: "blent-formation-ml-engineer-data-btl/primary/data.csv"

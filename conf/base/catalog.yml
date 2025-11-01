@@ -1,3 +1,7 @@
+# catalog.yml
+# =====================
+# Exemple d'utilisation des datasets locaux et GCS
+
 primary:
   type: pandas.CSVDataset
   filepath: data/03_primary/primary.csv
@@ -21,3 +25,14 @@ X_test:
 y_test:
   type: pandas.CSVDataset
   filepath: data/05_model_input/y_test.csv
+
+# Dataset sur GCS
+my_gcs_dataset:
+  type: pandas.CSVDataset
+  filepath: gs://purchase-predict-reloaded-bucket/data/01_raw/customers.csv
+  credentials: gcs_credentials
+
+
+model:
+  type: pickle.PickleDataset
+  filepath: data/06_models/model.pkl
