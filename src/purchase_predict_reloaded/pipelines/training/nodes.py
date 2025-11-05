@@ -51,9 +51,7 @@ def train_model(
     """
     Trains a new instance of model with supplied training set and hyper-parameters.
     """
-    override_schemas = list(filter(lambda x: x["class"] == instance, MODELS))[0][
-        "override_schemas"
-    ]
+    override_schemas = list(filter(lambda x: x["class"] == instance, MODELS))[0]["override_schemas"]
     for p in params:
         if p in override_schemas:
             params[p] = override_schemas[p](params[p])
@@ -138,4 +136,4 @@ def auto_ml(
 
     # In case we have multiple models
     best_model = max(opt_models, key=lambda x: x["score"])
-    return dict(model=best_model)
+    return best_model["model"]  # ← Retourne juste le modèle !
