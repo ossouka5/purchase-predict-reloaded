@@ -1,0 +1,24 @@
+# Pipeline CI/CD pour purchase-predict-reloaded
+steps:
+  # Étape 1 : CI - Tests unitaires
+  - name: "docker.io/library/python:3.9"
+    id: CI
+    entrypoint: /bin/sh
+    args:
+      - -c
+      - 'chmod a+x install.sh && ./install.sh && pytest tests/ -v'
+  
+  # Étape 2 : CD - Entraînement du modèle
+  - name: "docker.io/library/python:3.9"
+    id: CD
+    entrypoint: /bin/sh
+    args:
+      - -c
+      - 'chmod a+x install.sh && ./install.sh && kedro run'
+    env:
+      - 'ENV=staging'
+      - 'MLFLOW_SERVER=$_MLFLOW_SERVER'
+      - 'MLFLOW_REGISTRY_NAME=purchase_predict'
+
+# Timeout de 20 minutes (au lieu de 10 par défaut)
+timeout: 1200s
