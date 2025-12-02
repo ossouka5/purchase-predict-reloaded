@@ -30,7 +30,7 @@ y_test:
 my_gcs_dataset:
   type: pandas.CSVDataset
   filepath: gs://purchase-predict-reloaded-bucket/data/01_raw/customers.csv
-  credentials: gcs_credentials
+#  credentials: gcs_credentials
 
 predictions:
   type: pandas.CSVDataset
@@ -41,3 +41,14 @@ predictions:
 model:
   type: pickle.PickleDataset
   filepath: data/06_models/model.pkl
+  versioned: false
+  
+
+mlflow_run_id:
+  type: pickle.PickleDataset
+  filepath: data/06_models/mlflow_run_id.pkl
+  versioned: false
+
+transform_pipeline:
+  type: pickle.PickleDataset
+  filepath: data/04_feature/transform_pipeline.pkl
