@@ -20,5 +20,9 @@ steps:
       - 'MLFLOW_SERVER=$_MLFLOW_SERVER'
       - 'MLFLOW_REGISTRY_NAME=purchase_predict'
 
-# Timeout de 20 minutes (au lieu de 10 par défaut)
+# Timeout de 20 minutes
 timeout: 1200s
+
+# Configuration des logs
+options:
+  logging: CLOUD_LOGGING_ONLY
