@@ -6,7 +6,10 @@ steps:
     entrypoint: /bin/sh
     args:
       - -c
-      - 'chmod a+x install.sh && ./install.sh && pytest tests/ -v'
+      - |
+        chmod a+x install.sh
+        ./install.sh
+        pytest tests/ -v
   
   # Étape 2 : CD - Entraînement du modèle
   - name: "docker.io/library/python:3.9"
@@ -18,9 +21,9 @@ steps:
         chmod a+x install.sh
         ./install.sh
 
-        # 👉 Création du fichier attendu par le dataset 'primary'
+        # 👉 Création du fichier primary.csv pour satisfaire le dataset Kedro
         mkdir -p data/03_primary
-        printf "customer_id,feature1\n1,0.5\n2,0.7\n" > data/03_primary/primary.csv
+        printf "user_id,user_session,feature1\n1,s1,0.5\n2,s2,0.7\n" > data/03_primary/primary.csv
 
         # 👉 Lancer Kedro
         kedro run
