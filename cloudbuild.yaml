@@ -11,24 +11,20 @@ steps:
         ./install.sh
         pytest tests/ -v
   
-  # Étape 2 : CD - Entraînement du modèle
-  - name: "docker.io/library/python:3.9"
-    id: CD
-    entrypoint: /bin/sh
-    args:
-      - -c
-      - |
-        chmod a+x install.sh
-        ./install.sh
-        # Création du fichier primary.csv pour satisfaire le dataset Kedro
-        mkdir -p data/03_primary
-        printf "user_id,user_session,category,feature1\n1,s1,A,0.5\n2,s2,B,0.7\n" > data/03_primary/primary.csv
-        # Lancer Kedro
-        kedro run
-    env:
-      - 'ENV=staging'
-      - 'MLFLOW_SERVER=$_MLFLOW_SERVER'
-      - 'MLFLOW_REGISTRY_NAME=purchase_predict'
+  # Étape 2 : CD - Entraînement du modèle (DÉSACTIVÉ TEMPORAIREMENT)
+  # - name: "docker.io/library/python:3.9"
+  #   id: CD
+  #   entrypoint: /bin/sh
+  #   args:
+  #     - -c
+  #     - |
+  #       chmod a+x install.sh
+  #       ./install.sh
+  #       kedro run
+  #   env:
+  #     - 'ENV=staging'
+  #     - 'MLFLOW_SERVER=$_MLFLOW_SERVER'
+  #     - 'MLFLOW_REGISTRY_NAME=purchase_predict'
 
 # Timeout de 20 minutes
 timeout: 1200s
