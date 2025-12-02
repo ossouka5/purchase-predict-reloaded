@@ -20,12 +20,10 @@ steps:
       - |
         chmod a+x install.sh
         ./install.sh
-
-        # 👉 Création du fichier primary.csv pour satisfaire le dataset Kedro
+        # Création du fichier primary.csv pour satisfaire le dataset Kedro
         mkdir -p data/03_primary
         printf "user_id,user_session,category,feature1\n1,s1,A,0.5\n2,s2,B,0.7\n" > data/03_primary/primary.csv
-
-        # 👉 Lancer Kedro
+        # Lancer Kedro
         kedro run
     env:
       - 'ENV=staging'
