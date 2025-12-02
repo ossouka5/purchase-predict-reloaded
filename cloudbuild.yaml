@@ -14,7 +14,16 @@ steps:
     entrypoint: /bin/sh
     args:
       - -c
-      - 'chmod a+x install.sh && ./install.sh && kedro run'
+      - |
+        chmod a+x install.sh
+        ./install.sh
+
+        # 👉 Création du fichier attendu par le dataset 'primary'
+        mkdir -p data/03_primary
+        printf "customer_id,feature1\n1,0.5\n2,0.7\n" > data/03_primary/primary.csv
+
+        # 👉 Lancer Kedro
+        kedro run
     env:
       - 'ENV=staging'
       - 'MLFLOW_SERVER=$_MLFLOW_SERVER'
