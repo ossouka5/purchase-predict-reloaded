@@ -11,20 +11,29 @@ steps:
         ./install.sh
         pytest tests/ -v
   
-  # Étape 2 : CD - Entraînement du modèle (DÉSACTIVÉ TEMPORAIREMENT)
-  # - name: "docker.io/library/python:3.9"
-  #   id: CD
-  #   entrypoint: /bin/sh
-  #   args:
-  #     - -c
-  #     - |
-  #       chmod a+x install.sh
-  #       ./install.sh
-  #       kedro run
-  #   env:
-  #     - 'ENV=staging'
-  #     - 'MLFLOW_SERVER=$_MLFLOW_SERVER'
-  #     - 'MLFLOW_REGISTRY_NAME=purchase_predict'
+  # Étape 2 : CD - Entraînement du modèle
+  - name: "docker.io/library/python:3.9"
+    id: CD
+    entrypoint: /bin/sh
+    args:
+      - -c
+      - |
+        chmod a+x install.sh
+        ./install.sh
+        # Création du fichier primary.csv avec toutes les colonnes
+        mkdir -p data/03_primary
+        cat > data/03_primary/primary.csv << 'EOF'
+        product_id,brand,price,user_id,user_session,purchased,num_views_session,num_views_product,category,sub_category,hour,minute,weekday,duration,num_prev_sessions,num_prev_product_views
+        1004856,samsung,130.76,543272936,8187d148-3c41-46d4-b0c0-9c08cd9dc564,1,3,3,electronics,smartphone,0,2,1,76,0,0
+        1004857,apple,999.99,543272937,9287d148-3c41-46d4-b0c0-9c08cd9dc565,0,5,2,electronics,laptop,10,15,2,120,1,3
+        1004858,sony,450.50,543272938,1387d148-3c41-46d4-b0c0-9c08cd9dc566,1,2,1,electronics,tv,14,30,3,45,2,5
+        EOF
+        # Lancer Kedro
+        kedro run
+    env:
+      - 'ENV=staging'
+      - 'MLFLOW_SERVER=$_MLFLOW_SERVER'
+      - 'MLFLOW_REGISTRY_NAME=purchase_predict'
 
 # Timeout de 20 minutes
 timeout: 1200s
