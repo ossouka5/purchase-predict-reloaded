@@ -34,6 +34,17 @@ steps:
       - 'ENV=staging'
       - 'MLFLOW_SERVER=$_MLFLOW_SERVER'
       - 'MLFLOW_REGISTRY_NAME=purchase_predict'
+  
+  # Étape 3 : Déclencher le rebuild de l'API
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: API_TRIGGER
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "🚀 Déclenchement du rebuild de l'API..."
+        gcloud builds triggers run build-purchase-predict-api-main \
+          --region=europe-west9
 
 # Timeout de 20 minutes
 timeout: 1200s
