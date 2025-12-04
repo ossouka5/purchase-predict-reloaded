@@ -44,6 +44,7 @@ steps:
       - |
         echo "🚀 Déclenchement du rebuild de l'API..."
         gcloud builds triggers run build-purchase-predict-api-main \
+          --branch=main \
           --region=europe-west9
 
 # Timeout de 20 minutes
